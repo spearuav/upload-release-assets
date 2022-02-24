@@ -4,12 +4,13 @@ import fg from 'fast-glob';
 import fs from 'fs';
 import path from 'path';
 import mime from 'mime-types';
+import unixify from 'unixify';
 
 async function run() {
   try {
     let release_id: number = 0;
     const repo = github.context.repo;
-    const glob = core.getInput( 'files', { required: true } );
+    const glob = unixify(core.getInput( 'files', { required: true } ));
     const tag = core.getInput( 'release-tag' );
     const token = core.getInput( 'repo-token', { required: true } );
     const octokit = new github.GitHub( token );
